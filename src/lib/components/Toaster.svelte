@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import XMark from '$lib/icons/XMark.svelte';
-	import { toast, type Toast } from '$lib/stores/toast.js';
+	import { toast } from '$lib/stores/toast.js';
 	import { scale } from 'svelte/transition';
 	import TimerWheel from './TimerWheel.svelte';
+	import type { Toast } from '$lib/types/toast.js';
 
 	const alertTypes: Record<Toast['type'], string> = {
 		info: 'alert-info',

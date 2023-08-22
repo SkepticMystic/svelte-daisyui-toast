@@ -1,4 +1,4 @@
-import type { AddToastOptions, Toast } from "$lib/types/toast";
+import type { AddToastOptions, Toast } from "$lib/types/toast.js";
 import { nanoid } from "nanoid";
 import { writable } from "svelte/store";
 
