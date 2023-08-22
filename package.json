@@ -32,7 +32,6 @@
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/kit": "^1.20.4",
 		"@sveltejs/package": "^2.0.0",
 		"autoprefixer": "^10.4.15",
 		"daisyui": "^3.5.1",
@@ -52,6 +51,7 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/kit": "^1.20.4",
 		"nanoid": "^4.0.2"
 	}
 }
