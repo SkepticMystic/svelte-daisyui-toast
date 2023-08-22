@@ -78,11 +78,12 @@ The base method to add new toasts to the store is `toast.add`:
 
 ```ts
 function add(
-	/** Toast to add */
 	toast: Omit<Toast, 'id'>,
-	/** Options for adding the toast */
 	addToastOptions?: AddToastOptions
-): /** Returns the id of the added toast */ { id: string };
+): {
+	/** The id of the new toast */
+	id: string;
+};
 ```
 
 There are also shorthand methods to add each `type` of toast (each with the same function signature):
