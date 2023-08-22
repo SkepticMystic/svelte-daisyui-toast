@@ -1,58 +1,107 @@
-# create-svelte
+# Svelte-DaisyUI-Toast
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A simple toast component for Svelte with [DaisyUI](https://daisyui.com/) styling.
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Installation
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm i svelte-daisyui-toast
 ```
 
-## Developing
+## Quick Start
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+You'll need a Svelte project with [DaisyUI installed](https://daisyui.com/docs/install/).
 
-```bash
-npm run dev
+Add the `<Toaster />` component to your `+layout.svelte` file.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+Then add new toasts using the methods on the `toast` store.
+
+```svelte
+<script>
+	import { Toaster, toast } from 'svelte-daisyui-toast';
+</script>
+
+<button on:click={() => toast.add({ type: 'info', message: 'Hello, world!' })}> Show Toast </button>
+
+<slot />
+
+<Toaster />
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+## Types
 
-## Building
+Some types used in the API.
 
-To build your library:
+```ts
+/** Represents an individual toast in the store */
+type Toast = {
+	/** Random nanoid generated when adding a new toast. Used to remove toast later */
+	id: string;
 
-```bash
-npm run package
+	/** Type of toast. Affects which DaisyUI styles are applied */
+	type: 'success' | 'info' | 'warning' | 'error';
+
+	/** Message to display in the toast */
+	message: string;
+	/** Whether to render the message as HTML. Defaults to false */
+	html?: boolean;
+
+	/** How many milliseconds to show for before removing.
+	 * If not set, toast will not be removed automatically.
+	 */
+	duration_ms?: number;
+
+	/** Show an icon on the left side of the toast.
+	 * Can be a component or a string.
+	 */
+	icon?: ComponentType | string;
+
+	/** Only render toast if current $page.url.path.startsWith(route).
+	 * By default, shows on all routes
+	 */
+	showOnRoutes?: string[];
+};
+
+export type AddToastOptions = {
+	/** Only add if queue is empty */
+	ifEmpty?: boolean;
+	/** Clear queue before adding */
+	clearQueue?: boolean;
+};
 ```
 
-To create a production version of your showcase app:
+## API
 
-```bash
-npm run build
+### Adding a toast
+
+The base method to add new toasts to the store is `toast.add`:
+
+```ts
+function add(
+	/** Toast to add */
+	toast: Omit<Toast, 'id'>,
+	/** Options for adding the toast */
+	addToastOptions?: AddToastOptions
+): /** Returns the id of the added toast */ { id: string };
 ```
 
-You can preview the production build with `npm run preview`.
+There are also shorthand methods to add each `type` of toast (each with the same function signature):
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
+```ts
+function addTYPE(
+	message: string,
+	extras?: {
+		newToast?: Omit<Toast, 'id' | 'type' | 'message'>;
+		addToastOptions?: AddToastOptions;
+	}
+): { id: string };
 ```
+
+The full list of shorthands is:
+
+- `toast.addSuccess`
+- `toast.addInfo`
+- `toast.addWarning`
+- `toast.addError`
+
+For example, `toast.addSuccess('Hello, world!')` is equivalent to `toast.add({ type: 'success', message: 'Hello, world!' })`.
