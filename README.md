@@ -12,9 +12,22 @@ npm i svelte-daisyui-toast
 
 You'll need a Svelte project with [DaisyUI installed](https://daisyui.com/docs/install/).
 
-Add the `<Toaster />` component to your `+layout.svelte` file.
+1. Add the styles to your `tailwind.config.js` file:
 
-Then add new toasts using the methods on the `toast` store.
+```diff
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
++		'./node_modules/svelte-daisyui-toast/dist/**/*.{js,svelte}',
+	]
+
+	// ...
+};
+```
+
+2. Add the `<Toaster />` component to your `+layout.svelte` file.
+3. Add new toasts using the methods on the `toast` store.
 
 ```svelte
 <script>
