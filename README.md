@@ -34,9 +34,9 @@ module.exports = {
 	import { Toaster, toast } from 'svelte-daisyui-toast';
 </script>
 
-<button on:click={() => toast.add({ type: 'info', message: 'Hello, world!' })}> Show Toast </button>
-
 <slot />
+
+<button on:click={() => toast.addInfo('Hello, world!')}> Add Toast </button>
 
 <Toaster />
 ```
