@@ -21,7 +21,6 @@ module.exports = {
 		'./src/**/*.{html,js,svelte,ts}',
 +		'./node_modules/svelte-daisyui-toast/dist/**/*.{js,svelte}',
 	]
-
 	// ...
 };
 ```
@@ -69,7 +68,7 @@ type Toast = {
 	 */
 	icon?: ComponentType | string;
 
-	/** Only render toast if current $page.url.path.startsWith(route).
+	/** Only render toast if `showOnRoutes.some(route => $page.url.path.startsWith(route))`.
 	 * By default, shows on all routes
 	 */
 	showOnRoutes?: string[];
@@ -119,3 +118,30 @@ The full list of shorthands is:
 - `toast.addError`
 
 For example, `toast.addSuccess('Hello, world!')` is equivalent to `toast.add({ type: 'success', message: 'Hello, world!' })`.
+
+### Removing a toast
+
+To remove a toast, use `toast.remove`, passing in the `id` of the toast to remove:
+
+```ts
+function remove(id: string): void;
+```
+
+## Toaster Component
+
+The `<Toaster />` component is used to render the toasts in the store. It should be placed in your `+layout.svelte` file.
+
+It accepts the following props:
+
+### `alignment`
+
+Determines where the toasts are rendered on the screen. Defaults to bottom-right
+
+```ts
+{
+	x?: 'start' | 'center' | 'end';
+	y?: 'top' | 'middle' | 'bottom';
+}
+```
+
+These values _align_ (👀) with the [DaisyUI classes for the Toast component](https://daisyui.com/components/toast/).
