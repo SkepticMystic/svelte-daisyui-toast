@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import XMark from '$lib/components/icons/XMark.svelte';
 	import { toast } from '$lib/stores/toast.js';
 	import type { Toast } from '$lib/types/toast.js';
@@ -12,11 +11,26 @@
 		info: 'alert-info',
 		success: 'alert-success',
 		warning: 'alert-warning',
-		error: 'alert-error'
+		error: 'alert-error',
+		// These aren't _actual_ alert types, but we simulate them with bg colors
+		primary: 'bg-primary',
+		secondary: 'bg-secondary',
+		accent: 'bg-accent'
+	};
+
+	// Also have to adjust text colour for the weird ones
+	const contentStyles: Partial<Record<Toast['type'], string>> = {
+		primary: 'text-primary-content',
+		secondary: 'text-secondary-content',
+		accent: 'text-accent-content'
 	};
 </script>
 
-<div class="alert {alertTypes[t.type]} flex justify-between grow max-w-md" out:scale={{ duration: 300 }}>
+<div
+	class="alert {alertTypes[t.type]} {contentStyles[t.type] ??
+		''} flex justify-between grow max-w-md"
+	out:scale={{ duration: 300 }}
+>
 	<div class="flex items-center gap-3">
 		<!-- icon -->
 		{#if typeof t.icon === 'string'}
@@ -25,7 +39,7 @@
 			<svelte:component this={t.icon} />
 		{/if}
 
-		<div class='whitespace-pre-wrap'>
+		<div class="whitespace-pre-wrap">
 			<!-- html -->
 			{#if t.html}
 				{@html t.message}

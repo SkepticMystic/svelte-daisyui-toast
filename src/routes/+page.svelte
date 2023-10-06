@@ -8,6 +8,9 @@
 	toast.add({ type: 'success', message: 'Success' });
 	toast.add({ type: 'warning', message: 'Warning' });
 	toast.add({ type: 'error', message: 'Error' });
+	toast.add({ type: 'primary', message: 'Primary' });
+	toast.add({ type: 'secondary', message: 'Secondary' });
+	toast.add({ type: 'accent', message: 'Accent' });
 
 	toast.add({
 		type: 'info',
