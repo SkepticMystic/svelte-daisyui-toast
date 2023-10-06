@@ -17,6 +17,9 @@ export type Toast = {
 	 * By default, shows on all routes
 	 */
 	showOnRoutes?: string[];
+
+	/** Remove toast when navigating to a new route */
+	clearOnNavigation?: boolean;
 };
 
 export type AddToastOptions = {

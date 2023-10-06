@@ -5,4 +5,4 @@
 
 <slot />
 
-<Toaster alignment={{ x: 'center', y: 'top' }} />
+<Toaster alignment={{ x: 'end', y: 'top' }} />

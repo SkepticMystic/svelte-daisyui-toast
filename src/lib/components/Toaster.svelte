@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { beforeNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { toast } from '$lib/stores/toast.js';
 	import SingleToast from './SingleToast.svelte';
@@ -22,6 +23,10 @@
 		middle: 'toast-middle',
 		bottom: 'toast-bottom'
 	};
+
+	beforeNavigate(() => {
+		$toast = $toast.filter((t) => !t.clearOnNavigation);
+	});
 </script>
 
 <div class="toast {toastAlignments[resolvedAlignment.x]} {toastAlignments[resolvedAlignment.y]}">

@@ -72,6 +72,11 @@ type Toast = {
 	 * By default, shows on all routes
 	 */
 	showOnRoutes?: string[];
+
+	/** Remove toast when navigating away from the current route.
+	 * By default, toast will not be removed when navigating away
+	 */
+	clearOnNavigation?: boolean;
 };
 
 export type AddToastOptions = {
