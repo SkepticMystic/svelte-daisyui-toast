@@ -26,16 +26,19 @@ module.exports = {
 ```
 
 2. Add the `<Toaster />` component to your `+layout.svelte` file.
-3. Add new toasts using the methods on the `toast` store.
+3. Set the default toast options using `toast.defaults.set()`
+4. Add new toasts using the methods on the `toast` store.
 
 ```svelte
 <script>
-	import { Toaster, toast } from 'svelte-daisyui-toast';
+  import { Toaster, toast } from "svelte-daisyui-toast";
+
+  toast.defaults.set({ clear_on_navigate: true })
 </script>
 
 <slot />
 
-<button on:click={() => toast.addInfo('Hello, world!')}> Add Toast </button>
+<button on:click={() => toast.info("Hello, world!")}> Add Toast </button>
 
 <Toaster />
 ```
@@ -47,43 +50,38 @@ Some types used in the API.
 ```ts
 /** Represents an individual toast in the store */
 type Toast = {
-	/** Random nanoid generated when adding a new toast. Used to remove toast later */
-	id: string;
+  /** Random nanoid generated when adding a new toast. Used to remove toast later */
+  id: string;
 
-	/** Type of toast. Affects which DaisyUI styles are applied */
-	type: 'success' | 'info' | 'warning' | 'error';
+  /** Type of toast. Affects which DaisyUI styles are applied */
+  type: "success" | "info" | "warning" | "error";
 
-	/** Message to display in the toast */
-	message: string;
-	/** Whether to render the message as HTML. Defaults to false */
-	html?: boolean;
+  /** Message to display in the toast */
+  message: string;
+  /** Whether to render the message as HTML. Defaults to false */
+  html?: boolean;
 
-	/** How many milliseconds to show for before removing.
-	 * If not set, toast will not be removed automatically.
-	 */
-	duration_ms?: number;
+  /** How many milliseconds to show for before removing.
+   * If not set, toast will not be removed automatically.
+   */
+  duration_ms?: number;
 
-	/** Show an icon on the left side of the toast.
-	 * Can be a component or a string.
-	 */
-	icon?: ComponentType | string;
+  /** Show an icon on the left side of the toast.
+   * Can be a component or a string.
+   */
+  icon?: ComponentType | string;
 
-	/** Only render toast if `showOnRoutes.some(route => $page.url.path.startsWith(route))`.
-	 * By default, shows on all routes
-	 */
-	showOnRoutes?: string[];
-
-	/** Remove toast when navigating away from the current route.
-	 * By default, toast will not be removed when navigating away
-	 */
-	clearOnNavigation?: boolean;
+  /** Remove toast when navigating away from the current route.
+   * By default, toast will not be removed when navigating away
+   */
+  clear_on_navigate?: boolean;
 };
 
 export type AddToastOptions = {
-	/** Only add if queue is empty */
-	ifEmpty?: boolean;
-	/** Clear queue before adding */
-	clearQueue?: boolean;
+  /** Only add if queue is empty */
+  if_empty?: boolean;
+  /** Clear queue before adding */
+  clear_queue?: boolean;
 };
 ```
 
@@ -95,34 +93,29 @@ The base method to add new toasts to the store is `toast.add`:
 
 ```ts
 function add(
-	toast: Omit<Toast, 'id'>,
-	addToastOptions?: AddToastOptions
-): {
-	/** The id of the new toast */
-	id: string;
-};
+  toast: Omit<Toast, "id">,
+  options?: AddToastOptions,
+): Toast;
 ```
 
 There are also shorthand methods to add each `type` of toast (each with the same function signature):
 
 ```ts
-function addTYPE(
-	message: string,
-	extras?: {
-		newToast?: Omit<Toast, 'id' | 'type' | 'message'>;
-		addToastOptions?: AddToastOptions;
-	}
-): { id: string };
+function TYPE(
+  message: string,
+  input?: Omit<Toast, "id" | "type" | "message">,
+  options?: AddToastOptions;
+): Toast;
 ```
 
 The full list of shorthands is:
 
-- `toast.addSuccess`
-- `toast.addInfo`
-- `toast.addWarning`
-- `toast.addError`
+- `toast.success`
+- `toast.info`
+- `toast.warning`
+- `toast.error`
 
-For example, `toast.addSuccess('Hello, world!')` is equivalent to `toast.add({ type: 'success', message: 'Hello, world!' })`.
+For example, `toast.success('Hello, world!')` is equivalent to `toast.add({ type: 'success', message: 'Hello, world!' })`.
 
 ### Removing a toast
 
