@@ -5,7 +5,11 @@
   import { scale } from "svelte/transition";
   import TimerWheel from "./TimerWheel.svelte";
 
-  export let t: Toast;
+  interface Props {
+    t: Toast;
+  }
+
+  let { t }: Props = $props();
 
   const alertTypes: Record<Toast["type"], string> = {
     info: "alert-info",
@@ -56,7 +60,7 @@
 
     <TimerWheel
       duration_ms={t.duration_ms}
-      on:click={() => {
+      onclick={() => {
         toast.remove(t.id);
         clearTimeout(_timer);
       }}
@@ -66,7 +70,7 @@
   {:else}
     <button
       class="btn btn-circle btn-ghost btn-sm"
-      on:click={() => toast.remove(t.id)}
+      onclick={() => toast.remove(t.id)}
     >
       <XMark w="w-4" h="h-4" />
     </button>

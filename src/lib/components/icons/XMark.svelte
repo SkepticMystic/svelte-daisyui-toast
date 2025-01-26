@@ -1,7 +1,11 @@
 <script lang="ts">
-  export let w: `w-${number}` = "w-5";
-  export let h: `h-${number}` = "h-5";
-  export let colour: string = "";
+  interface Props {
+    w?: `w-${number}`;
+    h?: `h-${number}`;
+    colour?: string;
+  }
+
+  let { w = "w-5", h = "h-5", colour = "" }: Props = $props();
 </script>
 
 <svg

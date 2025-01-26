@@ -4,13 +4,13 @@
 
   $toast = [];
 
-  toast.add({ type: "info", message: "Info" });
-  toast.add({ type: "success", message: "Success" });
-  toast.add({ type: "warning", message: "Warning" });
-  toast.add({ type: "error", message: "Error" });
-  toast.add({ type: "primary", message: "Primary" });
-  toast.add({ type: "secondary", message: "Secondary" });
-  toast.add({ type: "accent", message: "Accent" });
+  toast.add({ type: "info", duration_ms: 5_000, message: "Info" });
+  toast.add({ type: "success", duration_ms: 5_000, message: "Success" });
+  toast.add({ type: "warning", duration_ms: 5_000, message: "Warning" });
+  toast.add({ type: "error", duration_ms: 5_000, message: "Error" });
+  toast.add({ type: "primary", duration_ms: 5_000, message: "Primary" });
+  toast.add({ type: "secondary", duration_ms: 5_000, message: "Secondary" });
+  toast.add({ type: "accent", duration_ms: 5_000, message: "Accent" });
 
   toast.add({
     type: "info",

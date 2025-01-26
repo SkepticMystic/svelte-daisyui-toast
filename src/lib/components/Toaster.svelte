@@ -3,11 +3,15 @@
   import { toast } from "$lib/stores/toast.js";
   import SingleToast from "./SingleToast.svelte";
 
-  /** Align the toast along the x and y axes */
-  export let alignment: {
-    x?: "start" | "center" | "end";
-    y?: "top" | "middle" | "bottom";
-  } = {};
+  interface Props {
+    /** Align the toast along the x and y axes */
+    alignment?: {
+      x?: "start" | "center" | "end";
+      y?: "top" | "middle" | "bottom";
+    };
+  }
+
+  let { alignment = {} }: Props = $props();
 
   const resolvedAlignment = {
     x: alignment.x ?? "end",

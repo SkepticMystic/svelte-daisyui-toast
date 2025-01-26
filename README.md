@@ -33,7 +33,7 @@ module.exports = {
 <script>
   import { Toaster, toast } from "svelte-daisyui-toast";
 
-  toast.defaults.set({ clear_on_navigate: true })
+  toast.defaults.set({ clear_on_navigate: true });
 </script>
 
 <slot />
@@ -92,10 +92,7 @@ export type AddToastOptions = {
 The base method to add new toasts to the store is `toast.add`:
 
 ```ts
-function add(
-  toast: Omit<Toast, "id">,
-  options?: AddToastOptions,
-): Toast;
+function add(toast: Omit<Toast, "id">, options?: AddToastOptions): Toast;
 ```
 
 There are also shorthand methods to add each `type` of toast (each with the same function signature):

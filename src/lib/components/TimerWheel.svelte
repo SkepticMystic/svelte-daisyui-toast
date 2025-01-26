@@ -1,26 +1,35 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  import { tweened } from "svelte/motion";
+  import { Tween } from "svelte/motion";
 
-  /** The duration of the timer wheel in milliseconds */
-  export let duration_ms: number;
-  /** The size of the timer wheel, passed to the inline style parameter "--size" */
-  export let size: string = "34px";
-  /** The thickness of the timer wheel, passed to the inline style parameter "--thickness" */
-  export let thickness: string = "3px";
+  interface Props {
+    /** The duration of the timer wheel in milliseconds */
+    duration_ms: number;
+    /** The size of the timer wheel, passed to the inline style parameter "--size" */
+    size?: string;
+    /** The thickness of the timer wheel, passed to the inline style parameter "--thickness" */
+    thickness?: string;
+    onclick: () => void;
+    children?: import("svelte").Snippet;
+  }
 
-  const dispatch = createEventDispatcher();
+  let {
+    duration_ms,
+    size = "34px",
+    thickness = "3px",
+    onclick,
+    children,
+  }: Props = $props();
 
-  const tween = tweened(0, { duration: duration_ms });
-  $tween += duration_ms;
+  const tween = new Tween(0, { duration: duration_ms });
+  tween.target += duration_ms;
 
-  $: perc = ($tween / duration_ms) * 100;
+  let perc = $derived((tween.current / duration_ms) * 100);
 </script>
 
 <button
-  class="btn btn-circle btn-ghost radial-progress btn-sm cursor-pointer"
+  {onclick}
   style="--size:{size}; --thickness:{thickness}; --value:{perc};"
-  on:click={() => dispatch("click")}
+  class="btn btn-circle btn-ghost radial-progress btn-sm cursor-pointer"
 >
-  <slot />
+  {@render children?.()}
 </button>

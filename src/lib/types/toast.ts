@@ -1,4 +1,4 @@
-import type { ComponentType } from "svelte";
+import type { Component } from "svelte";
 
 export type Toast = {
   /** Random nanoid generated when adding a new toast. Used to remove toast later */
@@ -18,7 +18,7 @@ export type Toast = {
   /** How many ms to show for before removing */
   duration_ms?: number;
 
-  icon?: ComponentType | string;
+  icon?: Component | string;
 
   /** Remove toast when navigating to a new route */
   clear_on_navigate?: boolean;
