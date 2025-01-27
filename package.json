@@ -1,6 +1,6 @@
 {
   "name": "svelte-daisyui-toast",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
